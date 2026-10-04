@@ -1,0 +1,14 @@
+{
+  "name": "Kader Ayarı",
+  "description": "Seferlerinin dünya tohumunu seç. Kaderi ayarlarsın; hayatta kalmak ayrı mesele.",
+  "settings": {
+    "fixed_seed": {
+      "ui_name": "Dünya tohumu sabit",
+      "ui_description": "Her seferi aşağıdaki tohumla başlat. Kader aynı; hatalar sana ait."
+    },
+    "seed": {
+      "ui_name": "Dünya tohumu",
+      "ui_description": "Kullanmak istediğin dünya tohumu. Aynı dünya, yeni cenaze ihtimali."
+    }
+  }
+}

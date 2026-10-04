@@ -1,0 +1,12 @@
+/dist/
+/work/
+__pycache__/
+*.pyc
+*.bak
+*.log
+config.xml
+mod_settings.bin
+save*/
+auth*.json
+.env
+.venv/
