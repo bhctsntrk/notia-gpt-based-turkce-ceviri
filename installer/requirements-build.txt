@@ -1,0 +1,5 @@
+pyinstaller==6.22.3
+pillow==12.3.0
+luaparser==4.2.0
+antlr4-python3-runtime==4.13.2
+multimethod==2.1

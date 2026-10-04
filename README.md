@@ -11,7 +11,38 @@ mekanik bilgiler korunur; espriler seçili açıklamalardadır.
 
 > Yanıyorsun. Su bul! Aydınlanmanın sırası değil.
 
-## Hazırlama ve kurulum
+## Windows — EXE ile kurulum
+
+[NoitaTurkceSetup-0.1.0.exe indir](https://github.com/bhctsntrk/notia-gpt-based-turkce-ceviri/releases/download/v0.1.0/NoitaTurkceSetup-0.1.0.exe).
+Windows 10/11, 64 bit. Python, uv veya elle dosya kopyalama gerekmez.
+
+1. Noita'yı kapat ve EXE'yi çift tıklayarak aç.
+2. Steam kurulumu otomatik bulunur. Gerekirse **Klasör seç** ile `noita.exe`
+   dosyasının bulunduğu klasörü göster.
+3. Ana yama hazırdır. Kuruluysa Cheatgui ve Seed Changer eklerini de seçebilirsin.
+4. **Türkçe yamayı kur** düğmesine bas. Dil ayarı varsa Türkçe otomatik seçilir;
+   oyun henüz açılmadıysa oyun içinden **Options > Language > Türkçe** seç.
+
+Kaldırmak için aynı EXE'de **Kaldır / geri yükle** düğmesini veya Windows'un
+**Yüklü uygulamalar > Noita Türkçe Çeviri > Kaldır** seçeneğini kullan.
+Kurulumdan önceki dosyalar ve önceki dil geri gelir. Sonradan değiştirilen ses,
+görüntü ve diğer ayarlar korunur; kayıt oyunlarına dokunulmaz. Önceden elle
+Türkçe yama kurduysan kaldırma o önceki yamayı geri getirir.
+
+Paketler EXE'nin içindedir; internet bağlantısı gerekmez. Özgün modlar ayrıca
+kurulu olmalı; araç onların yalnız çeviri eklerini uygular. Fontları kendi oyun
+dosyalarından otomatik hazırlar, elle arşiv açmak gerekmez.
+
+Yedekler yerel `%LOCALAPPDATA%/NoitaTurkce/Installations` klasöründe tutulur.
+Windows kaldırma düğmesinin çalışması için kurulum aracı yerel olarak saklanır;
+yama kaldırıldıktan sonra tekrar kullanım için kalır. Değişmiş dosya veya bozuk
+yedek bulunursa mevcut dosyaları korumak için işlem durur.
+
+EXE kod imzası taşımaz; Windows indirme/güvenlik uyarısı gösterebilir. Yalnız
+bu projenin sürüm sayfasındaki dosyayı kullan; SHA-256 özeti sürüme eklenir.
+Oyun klasörüne yazma izni gerekir. Kurulum aracı yönetici yetkisi istemez.
+
+## Kaynaktan hazırlama ve elle kurulum
 
 Tam/satın alınmış Noita sürümü, Python, [uv](https://docs.astral.sh/uv/) ve
 oyunun açılmış `data/fonts` dosyaları gerekir. Dosyalar açılmamışsa oyunun
@@ -84,6 +115,27 @@ Kaynaklar bilgisayar adı/yolu, kişisel kullanıcı adı, kayıt oyunları, ki�
 ayarlar, erişim anahtarları veya kullanıcı yedekleri içermez. Araçlar yolları
 komut satırından alır; üretilen dosyalar ve yedekler Git dışında tutulur.
 Oyun geliştiricilerinin kredi ve hak sahipliği bilgileri korunmuştur.
+
+## Windows aracını derleme ve doğrulama
+
+Windows üzerinde Python 3.12 ve uv ile:
+
+```powershell
+uv run --no-project --with-requirements installer/requirements-build.txt python -m installer.build_exe
+uv run --no-project --with-requirements installer/requirements-build.txt python -m installer.selftest dist/installer/test-report.json
+```
+
+EXE `dist/installer` altında oluşur. Testler geçici, sentetik bir oyun kurulumunda
+çalışır. Aynı kur/kaldır testlerini derlenmiş EXE'nin içinde çalıştırmak için:
+
+```powershell
+dist/installer/NoitaTurkceSetup-0.1.0.exe --self-test dist/installer/test-report.json
+```
+
+Testler yedek bütünlüğünü, ek modların byte düzeyinde geri yüklenmesini, farklı
+ayarların korunmasını, WAK font okumasını, hata sonrası geri almayı, açık oyun
+korumasını, işlem kilidini ve Windows kaldırma kaydını denetler. Gerçek oyun
+kurulumunda uçtan uca görsel test ayrıca yapılmalıdır.
 
 ## Haklar
 
