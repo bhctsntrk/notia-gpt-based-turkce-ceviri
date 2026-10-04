@@ -10,10 +10,11 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 from luaparser import ast
-from luaparser.astnodes import String
+from luaparser.astnodes import Call, Name, String
 
 ROOT = Path(__file__).resolve().parents[1]
 MARKER = "-- Turkish UI patch v1"
+FONT_MARKER = "-- Turkish GUI font binding v1"
 PANEL_NAMES = {"wand builder", "teleport", "health", "gold", "gui grid ref.",
                "always cast", "spells", "perks", "flasks", "items", "wands",
                "widgets", "shift material", "fungal", "console"}
@@ -49,6 +50,24 @@ def replace_once(text: str, old: str, new: str) -> str:
     if text.count(old) != 1:
         raise ValueError("Unexpected Cheatgui structure; refusing a partial patch.")
     return text.replace(old, new, 1)
+
+
+def bind_turkish_font(text: str) -> str:
+    if FONT_MARKER in text:
+        return text
+    calls = Counter()
+    for node in ast.walk(ast.parse(text)):
+        if isinstance(node, Call) and isinstance(node.func, Name):
+            name = node.func.id
+            if name in ("GuiText", "GuiButton"):
+                expected = 4 if name == "GuiText" else 5
+                if len(node.args) != expected:
+                    raise ValueError("Unexpected Cheatgui text call; refusing a partial font patch.")
+                calls[name] += 1
+    if not calls["GuiText"] or not calls["GuiButton"]:
+        raise ValueError("Expected Cheatgui text and button calls.")
+    helper = (ROOT / "tools/cheatgui_font.lua").read_text(encoding="utf-8")
+    return helper + "\n" + text
 
 
 def improve_localized_display(text: str, categories: dict[str, str]) -> str:
@@ -120,10 +139,22 @@ def translate(mod: Path, backup: Path, dry_run: bool) -> None:
     metadata_path = mod / "mod.xml"
     metadata = metadata_path.read_text(encoding="utf-8-sig")
     if MARKER in main or main.startswith("-- Turkish UI patch:"):
-        ast.parse(main)
-        if not dry_run and main.startswith("-- Turkish UI patch:"):
-            main_path.write_text(MARKER + "\n" + main.partition("\n")[2], encoding="utf-8", newline="")
-            print("Updated Turkish UI patch label; Lua syntax validated.")
+        updated = main
+        if main.startswith("-- Turkish UI patch:"):
+            updated = MARKER + "\n" + main.partition("\n")[2]
+        updated = bind_turkish_font(updated)
+        ast.parse(updated)
+        if dry_run:
+            print("Validated Turkish UI and font bindings; no files changed.")
+            return
+        if updated != main:
+            destination = backup / "before_font_fix" / main_path.relative_to(mod)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            if not destination.exists():
+                shutil.copyfile(main_path, destination)
+            main_path.write_text(updated, encoding="utf-8", newline="")
+            assert main_path.read_text(encoding="utf-8") == updated
+            print("Updated Turkish UI font bindings; restart Noita.")
             return
         print("Cheatgui Turkish UI is already installed; no files changed.")
         return
@@ -133,6 +164,7 @@ def translate(mod: Path, backup: Path, dry_run: bool) -> None:
     if missing:
         raise ValueError(f"UI strings missing in this mod version: {sorted(missing)}")
     translated_main = improve_localized_display(translated_main, data["material_categories"])
+    translated_main = bind_turkish_font(translated_main)
     ast.parse(translated_main)
     translated_metadata = metadata_translation(metadata, data)
     if dry_run:

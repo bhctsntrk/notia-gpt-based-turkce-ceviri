@@ -62,6 +62,9 @@ uv run --no-project --with luaparser python tools/cheatgui.py --mod-dir "<Cheatg
 bilgi çubuğu ve oyun içi konsol menüsündeki 112 metin örneğini çevirir.
 Büyü/eşya/malzeme listelerinde oyunun yerelleştirilmiş adlarını gösterir.
 Teknik eşya kimlikleri ve hile işlevleri korunur.
+Menü metinleri ve düğmeleri dil paketindeki Türkçe piksel fontuyla çizilir;
+`ğĞıİşŞ` harfleri de desteklenir. Daha önce çevrilmiş bir Cheatgui kopyasına
+aracı tekrar uygulamak font düzeltmesini ekler.
 
 Araç Lua sözdizimini ve metin eşleşmelerini dosya yazmadan önce denetler.
 `--dry-run` uyumluluğu kontrol eder; orijinaller `dist/cheatgui_backup`
