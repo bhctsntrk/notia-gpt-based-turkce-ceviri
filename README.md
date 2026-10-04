@@ -1,6 +1,6 @@
 **GPT 6.1 Sol ile çevrildi.**
 
-# Noita — Türkçe (Biraz Tekinsiz)
+# Noita — GPT Tabanlı Türkçe Çeviri
 
 Ölüm evrensel, otopsi yerel.
 
@@ -22,7 +22,7 @@ uv run --no-project --with pillow python tools/build.py --game-dir "<Noita klas�
 ```
 
 `dist/translation_tr_witty` klasörü oluşur. Bunu Noita'nın `mods` klasörüne
-kopyala; oyun içinden **Options > Language > Türkçe (Biraz Tekinsiz)** seç.
+kopyala; oyun içinden **Options > Language > Türkçe** seç.
 Dil paketi `is_translation="1"` mekanizmasını kullanır.
 
 Fontlar kendi oyun kurulumundan hazırlanır. Depoda yalnız eksik `ğĞıİşŞ`

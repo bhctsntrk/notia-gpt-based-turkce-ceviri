@@ -13,7 +13,7 @@ from luaparser import ast
 from luaparser.astnodes import String
 
 ROOT = Path(__file__).resolve().parents[1]
-MARKER = "-- Turkish UI patch: Biraz Tekinsiz v1"
+MARKER = "-- Turkish UI patch v1"
 PANEL_NAMES = {"wand builder", "teleport", "health", "gold", "gui grid ref.",
                "always cast", "spells", "perks", "flasks", "items", "wands",
                "widgets", "shift material", "fungal", "console"}
@@ -119,8 +119,12 @@ def translate(mod: Path, backup: Path, dry_run: bool) -> None:
         raise ValueError("This patch supports Cheatgui 1.5.0; unsupported version.")
     metadata_path = mod / "mod.xml"
     metadata = metadata_path.read_text(encoding="utf-8-sig")
-    if MARKER in main:
+    if MARKER in main or main.startswith("-- Turkish UI patch:"):
         ast.parse(main)
+        if not dry_run and main.startswith("-- Turkish UI patch:"):
+            main_path.write_text(MARKER + "\n" + main.partition("\n")[2], encoding="utf-8", newline="")
+            print("Updated Turkish UI patch label; Lua syntax validated.")
+            return
         print("Cheatgui Turkish UI is already installed; no files changed.")
         return
     translated_main, main_found, main_count = literal_translations(main, data["strings"])
