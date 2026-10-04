@@ -1,3 +1,5 @@
+**GPT 6.1 Sol ile çevrildi.**
+
 # Noita — Türkçe (Biraz Tekinsiz)
 
 Ölüm evrensel, otopsi yerel.
