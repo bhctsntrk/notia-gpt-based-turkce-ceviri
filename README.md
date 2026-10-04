@@ -46,6 +46,27 @@ dosyaları `dist/seed_changer_backup` altında yedekler. Atölye güncellemesi
 Seed Changer'ın kaynak kodu bu depoda dağıtılmaz. Bu ek, güncel modun
 yerleşik ayar menüsünü hedefler.
 
+## Cheatgui için isteğe bağlı ek
+
+[Cheatgui modunu](https://steamcommunity.com/sharedfiles/filedetails/?id=1984977713)
+ayrıca edin ve önce Türkçe dil paketini seç. Cheatgui **1.5.0** arayüzünü
+Türkçeleştirmek için:
+
+```powershell
+uv run --no-project --with luaparser python tools/cheatgui.py --mod-dir "<Cheatgui klasörü>"
+```
+
+**Hile Tezgâhı**, asa atölyesi, ışınlanma, can/altın, mantar dönüşümü,
+bilgi çubuğu ve oyun içi konsol menüsündeki 112 metin örneğini çevirir.
+Büyü/eşya/malzeme listelerinde oyunun yerelleştirilmiş adlarını gösterir.
+Teknik eşya kimlikleri ve hile işlevleri korunur.
+
+Araç Lua sözdizimini ve metin eşleşmelerini dosya yazmadan önce denetler.
+`--dry-run` uyumluluğu kontrol eder; orijinaller `dist/cheatgui_backup`
+altında saklanır. Kurulumdan sonra Noita'yı yeniden başlat. Atölye güncellemesi
+çeviriyi kaldırırsa aracı yeniden çalıştır. Modun tam kaynak kodu depoya
+eklenmemiştir.
+
 ## Durum ve gizlilik
 
 İlk metin kaynağı Noita Steam build `17130612`. 3.686 dolu kaynak satırındaki

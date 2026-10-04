@@ -20,7 +20,7 @@ Bu değerlendirme hukuki kesinlik veya profesyonel hukuk görüşü değildir.
 Bu nedenle depo Türkçe çeviri metinlerini, küçük ek glif tanımlarını ve
 kendi oyun dosyalarını kullanarak paketi hazırlayan araçları içerir. Özgün
 İngilizce metin tablosu, tam oyun fontları, çalıştırılabilir oyun dosyaları
-ve Seed Changer kaynak kodu yayımlama kaynaklarına eklenmemiştir.
+ve üçüncü taraf modların tam kaynak kodu yayımlama kaynaklarına eklenmemiştir.
 
 Bu yapı, ücretsiz bir çeviri modu paylaşımı için sözleşmeyle uyumlu görünür.
 Çevirilerin türev eser niteliği ve üçüncü taraf mod hakları nedeniyle bunu
@@ -34,6 +34,10 @@ Seed Changer: Evaisa; özgün mod ve hakları için
 [Steam Atölye sayfasına](https://steamcommunity.com/sharedfiles/filedetails/?id=2284931352)
 bak. İsteğe bağlı araç yalnız kullanıcının kurulu kopyasında metin değişikliği
 uygular; özgün modu yeniden dağıtmaz.
+
+Cheatgui: [özgün Steam Atölye sayfası](https://steamcommunity.com/sharedfiles/filedetails/?id=1984977713).
+Bu modun da tam kaynak kodu dağıtılmaz; isteğe bağlı Türkçe aracı kullanıcının
+kurulu kopyasına metin değişiklikleri ve yerelleştirilmiş ad gösterimi uygular.
 
 Sözleşme belgesinin kendi lisansı CC BY-SA 3.0'dır; belgede Greenheart Games
 ve IDEALAW atıfları vardır. Özgün belge ve atıfları aynen korunmuştur. Bu
